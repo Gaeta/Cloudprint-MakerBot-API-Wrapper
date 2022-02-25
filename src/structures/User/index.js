@@ -21,6 +21,10 @@ class User {
    * 
   */
   constructor (client) {
+    /**
+     * The MakerBot Client
+     * @type {MakerBot}
+     */
     this.client = client;
     /**
      * The id
@@ -141,7 +145,7 @@ class User {
   }
 
   getUser () {
-    this.client.emit('debug', `Getting User`);
+    if (this.client.options.debug) this.client.emit('debug', `Getting User`);
     return new Promise((resolve, reject) => {
       this.client.http.get('/user').then(response => {
         if (response.status !== 200) throw new Error(`User.getUser() - ${response.statusCode} - ${response.statusMessage}`);
@@ -151,7 +155,7 @@ class User {
             this.teamsUser = new TeamUser(this.client, response.data[key]);
           } else this[key] = response.data[key];
         });
-        this.client.emit('debug', `User Loaded: ${this.full_name}`);
+        if (this.client.options.debug) this.client.emit('debug', `User Loaded: ${this.full_name}`);
         return resolve(this);
       }).catch(error => {
         if (this.client.debug) this.client.emit('debug', "Login failed: " + error.message);

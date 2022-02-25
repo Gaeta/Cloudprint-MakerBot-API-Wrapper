@@ -9,6 +9,7 @@ const Util = new require('./util');
 const Http = require('./helpers/http');
 const EventEmmiter = require('events');
 const User = require('./structures/User');
+const PrinterManager = require('./managers/PrinterManager');
 
 /** 
  * The MakerBot class is used to interact with the Cloudprint API.
@@ -50,11 +51,25 @@ class MakerBot extends EventEmmiter {
 
     this.http = Http;
 
+    /** 
+     * @description If the library is ready to be used.
+     * 
+     * @type {Boolean}
+     * @default false
+     */
+    this.ready = false;
+
     /**
      * The User logged in.
      * @type {User}
      */
     this.user = null;
+
+    /**
+     * The Printers linked to this account.
+     * @type {PrinterManager|null}
+     */
+     this.printerManager = null;
 
     if ((!this.options.username || !this.options.password) && !this.options.mbToken.token) throw new Error('You must provide either a username/password or a token');
 
@@ -136,10 +151,11 @@ class MakerBot extends EventEmmiter {
         
         // this.user = this.getUser();
         // this.emit('ready', this);
-        return Promise.all([this.getUser()]).then(() => this.emit('ready', this));
+        return Promise.all([this.getUser(), this.getPrinters()]).then(() => {this.ready = true; this.emit('ready', this);});
       }).catch(error => {
         if (this.options.debug) this.emit('debug', "Login failed: " + error.message);
         this.emit('error', error);
+        this.ready = false;
         throw error;
       })
     } else if (settings.token) {
@@ -161,6 +177,20 @@ class MakerBot extends EventEmmiter {
     return new Promise(async (resolve, reject) => {
       this.user = await new User(this);
       return resolve(this.user);
+    });
+  }
+
+  /**
+  * @description Calls the Printers if they have not been called yet.
+  * 
+  * @returns {PrinterManager} The Printer Manager
+  * @memberof MakerBot
+  */
+
+  getPrinters () {
+    return new Promise(async (resolve, reject) => {
+      if (!this.printerManager) this.printerManager = await new PrinterManager(this, true);
+      return resolve(this.printerManager);
     });
   }
 

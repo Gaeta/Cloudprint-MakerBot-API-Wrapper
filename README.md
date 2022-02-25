@@ -38,7 +38,12 @@ _Installing with Redis will make the system a lot faster_
 
 ## To Do List
 
- - [X] XXXX
+ - [] Show Teams
+ - [] Allow to pause and stop a print
+ - [] Allow to cancel a print
+ - [] Allow to add a print
+ - [] Start next queue
+
 
 ## 🤝 Support
 Contributions, issues, and feature requests are welcome! 
