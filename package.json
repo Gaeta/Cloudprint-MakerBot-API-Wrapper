@@ -1,0 +1,36 @@
+{
+  "name": "cloudprint-makerbot-api-wrapper",
+  "version": "1.0.0-dev",
+  "main": "src/index.js",
+  "author": "Gaeta <dj@gaeta.me>",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "docs:build": "docma build",
+    "docs:dev": "yarn run changelog && yarn run docs:build && docma serve",
+    "changelog": "auto-changelog --output CHANGELOG.md --template keepachangelog --commit-limit false --unreleased --package"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gaeta/Cloudprint-MakerBot-API-Wrapper.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Gaeta/Cloudprint-MakerBot-API-Wrapper/issues"
+  },
+  "homepage": "https://github.com/Gaeta/Cloudprint-MakerBot-API-Wrapper#readme",
+  "keywords": [
+    "makerbot",
+    "cloudprint",
+    "api",
+    "wrapper"
+  ],
+  "devDependencies": {
+    "auto-changelog": "^2.4.0",
+    "docma": "^3.2.2",
+    "jsdoc": "^3.6.10"
+  },
+  "dependencies": {
+    "axios": "^0.26.0",
+    "sequelize": "^6.16.3"
+  }
+}

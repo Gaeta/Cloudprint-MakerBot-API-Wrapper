@@ -1,0 +1,81 @@
+
+{
+  "src":[
+      "./src/index.js",
+      "./src/*.js",
+      "./src/**/*.js",
+      "./README.md",
+      "CHANGELOG.md"
+  ],
+  "dest":"./docs",
+  "jsdoc":{
+      "hierarchy":true,
+      "sort":"kind",
+      "plugins":[
+        "plugins/markdown"
+      ]
+  },
+  "markdown":{
+      "sanitize":false
+  },
+  "app":{
+      "title": "Cloudprint MakerBot API Wrapper",
+      "routing":"query",
+      "entrance":"content:readme",
+      "base":"/"
+  },
+  "template":{
+      "options":{
+          "title":{
+              "label": "MakerBot",
+              "href":"."
+          },
+          "sidebar":{
+              "enabled":true,
+              "outline":"tree",
+              "collapsed":false,
+              "toolbar":true,
+              "itemsFolded":true,
+              "itemsOverflow":"crop",
+              "badges":true,
+              "search":true,
+              "animations":true
+          },
+          "symbols":{
+              "autoLink":true,
+              "params":"list",
+              "enums":"list",
+              "props":"list",
+              "meta":true
+          },
+          "navbar":{
+              "enabled":true,
+              "dark":true,
+              "animations":true,
+              "menu":[
+                  {
+                      "label": "Home",
+                      "href":".",
+                      "iconClass": "fas fa-home"
+                  },
+                  {
+                    "label": "Change Log",
+                    "href": "?content=changelog",
+                    "iconClass": "fas fa-book"
+                  },
+                  {
+                      "label":"Documentation",
+                      "href":"?api",
+                      "iconClass": "fas fa-book"
+                  },
+                  {
+                      "label":"GitHub",
+                      "href":"https://github.com/Gaeta/Cloudprint-MakerBot-API-Wrapper",
+                      "target": "_blank",
+                      "iconClass": "fab fa-github"
+                  }
+              ]
+          }
+      }
+  }
+}
